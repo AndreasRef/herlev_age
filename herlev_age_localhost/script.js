@@ -160,7 +160,7 @@ function draw() {
   fill(255);
   rect(0,height -height/6,width, height/6);
   fill(0);
-  text("Rammer den rigtigt? \nBiblioteket har både CD'er, DVD'er,\noder og musikmagasiner på 1. sal.", width/2, height- height/10);
+  text("Rammer den rigtigt? \nEllers har Biblioteket både CD’er, \nDVD’er, noder og musikmagasin på 1. sal.", width/2, height- height/10);
   
   pop();
   
