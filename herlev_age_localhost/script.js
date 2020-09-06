@@ -119,14 +119,22 @@ function draw() {
   noiseOffSet+=0.0005;
 }
 
+  let biggestFace;
+  let widthRecord = 0;
 
   //the loop
   for (let i = 0; i<faces.length; i++) {
 
-    if (faces[i].alignedRect.box.x > leftBorder && faces[i].alignedRect.box.x + faces[i].alignedRect.box.width < rightBorder) {
-      age = lerp(age, faces[i].age, 0.01);
+    if (faces[i].alignedRect.box.x > leftBorder && faces[i].alignedRect.box.x + faces[i].alignedRect.box.width < rightBorder && faces[i].alignedRect.box.y > height/6 && (faces[i].alignedRect.box.y+faces[i].alignedRect.box.height) < 5*height/6) {
+      //age = lerp(age, faces[i].age, 0.01);
+
+      if (faces[i].alignedRect.box.width > widthRecord) {
+        widthRecord = faces[i].alignedRect.box.width;
+        biggestFace = faces[i];
+      }
 
     //text("#" + i + ": age : " + round(faces[i].age), 25, 25*i + 50);
+    /*
     push();
     noFill();
     translate((960-720),0);
@@ -135,13 +143,38 @@ function draw() {
     strokeWeight(10);
     stroke("#CC1F2E");
     //rect(faces[i].alignedRect.box.x, faces[i].alignedRect.box.y, faces[i].alignedRect.box.width, faces[i].alignedRect.box.height)
-    drawCorners(faces[i].alignedRect.box.x, faces[i].alignedRect.box.y, faces[i].alignedRect.box.width, faces[i].alignedRect.box.height, 6);
+    //drawCorners(faces[i].alignedRect.box.x, faces[i].alignedRect.box.y, faces[i].alignedRect.box.width, faces[i].alignedRect.box.height, 6);
+
+    //console.log(faces[i].alignedRect.box.x);
+
+    pop();
+    */
+    }
+
+    
+
+
+
+  }
+
+  //console.log(biggestFace);
+
+    if (biggestFace) {
+      age = lerp(age, biggestFace.age, 0.01);
+    push();
+    noFill();
+    translate((960-720),0);
+
+    scale(1/scaleFactor, 1);
+    strokeWeight(10);
+    stroke("#CC1F2E");
+    //rect(faces[i].alignedRect.box.x, faces[i].alignedRect.box.y, faces[i].alignedRect.box.width, faces[i].alignedRect.box.height)
+    drawCorners(biggestFace.alignedRect.box.x, biggestFace.alignedRect.box.y, biggestFace.alignedRect.box.width, biggestFace.alignedRect.box.height, 6);
 
     //console.log(faces[i].alignedRect.box.x);
 
     pop();
     }
-  }
 
 
   //Info bars
@@ -214,7 +247,7 @@ function draw() {
   //Right arrow
   push();
   noStroke();
-  fill("#CC1F2E");
+  fill("#22AFCB");
   triangle(width, height*0.475, width, height*0.525, width- height/6, height*0.5);
   pop();
 
